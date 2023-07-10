@@ -1,52 +1,130 @@
 <script lang="ts">
-	import exifr from 'exifr';
-	import Dropzone from '../lib/components/Dropzone.svelte';
+	import Dropzone from '$lib/components/Dropzone.svelte';
+	import { loadExif } from '$lib/exif';
+	import { Preview } from '$lib/preview';
 	let canvas: HTMLCanvasElement | null = null;
-	let stats = '';
-	const targetPropParseMap: Record<string, (value: unknown) => string> = {
-		Make: (value) => `${value}`,
-		Model: (value) => `${value}`,
-		ISO: (value) => `${value}`,
-		FNumber: (value) => `${value}`,
-		FocalLength: (value) => `${value}mm`,
-		FocalLengthIn35mmFormat: (value) => `${value}mm`,
-		ExposureTime: (value) => {
-			const num = Number(value);
-			if (num < 1) return `1/${Math.round(1 / num)}s`;
-			else return `${num}s`;
-		},
-		LensModel: (value) => `${value}`
-	};
-	const onFileChange = (e: CustomEvent<FileList>) => {
-		const files = e.detail;
-		const file = files[0];
-		const reader = new FileReader();
-		reader.onload = (e) => {
-			const img = new Image();
-			img.onload = () => {
-				if (!canvas) throw new Error('Canvas is null');
-				canvas.width = img.width;
-				canvas.height = img.height;
-				const ctx = canvas.getContext('2d');
-				if (!ctx) throw new Error('Canvas context is null');
-				ctx.drawImage(img, 0, 0);
-			};
-			if (typeof e.target?.result === 'string') img.src = e.target.result;
-			else throw new Error('e.target?.result is not a string');
-		};
-		reader.readAsDataURL(file);
-		exifr.parse(file).then((exif) => {
-			console.log(exif);
-			stats = '';
-			Object.entries(targetPropParseMap).forEach(([prop, parse]) => {
-				if (exif[prop] === undefined) return;
-				stats += `${prop}: ${parse(exif[prop])}\n`;
-			});
-		});
+	let ctx: CanvasRenderingContext2D | undefined;
+	$: ctx = canvas?.getContext('2d') ?? undefined;
+	let preview: Preview | undefined;
+	$: if (ctx) preview = new Preview(ctx);
+	const unresolved: Promise<any> = new Promise(() => {});
+	let urlPromise: Promise<string> = unresolved;
+
+	const onFileChange = async (e: CustomEvent<FileList>) => {
+		const file = e.detail.item(0);
+		if (!file || !preview) return;
+
+		const [exif] = await Promise.all([loadExif(file), preview.load(file)]);
+		urlPromise = preview.draw([
+			{
+				type: 'background',
+				color: 'white',
+				top: -2,
+				right: -2,
+				bottom: -11,
+				left: -2
+			},
+			{ type: 'image' },
+			{
+				type: 'text',
+				align: 'right',
+				baseline: 'alphabetic',
+				position: {
+					x: { type: 'right', offset: 0 },
+					y: { type: 'bottom', offset: 5 }
+				},
+				text: [
+					{
+						color: '#666',
+						value: 'Shot on ',
+						font: { family: 'sans-serif', size: 2.5 }
+					},
+					exif.Model && {
+						color: '#000',
+						value: `${exif.Model} `,
+						font: { family: 'sans-serif', size: 2.5, weight: 'bold' }
+					},
+					exif.Make && {
+						color: '#000',
+						value: exif.Make,
+						font: { family: 'sans-serif', size: 2.5 }
+					}
+				].flatMap((x) => x || [])
+			},
+			{
+				type: 'text',
+				align: 'right',
+				baseline: 'alphabetic',
+				position: {
+					x: { type: 'right', offset: 0 },
+					y: { type: 'bottom', offset: 8 }
+				},
+				text: [
+					exif.FocalLength && {
+						color: '#999',
+						value: `${exif.FocalLength} `,
+						font: { family: 'sans-serif', size: 1.75 }
+					},
+					exif.FNumber && {
+						color: '#999',
+						value: `${exif.FNumber} `,
+						font: { family: 'sans-serif', size: 1.75 }
+					},
+					exif.ExposureTime && {
+						color: '#999',
+						value: `${exif.ExposureTime} `,
+						font: { family: 'sans-serif', size: 1.75 }
+					},
+					exif.ISO && {
+						color: '#999',
+						value: exif.ISO,
+						font: { family: 'sans-serif', size: 1.75 }
+					}
+				].flatMap((x) => x || [])
+			}
+		]);
 	};
 </script>
 
-<Dropzone on:change={onFileChange} class="appearance-none block w-full border-none h-full">
-	<canvas bind:this={canvas} class="max-w-full max-h-full pointer-events-none" />
-	<pre class="text-white">{stats}</pre>
-</Dropzone>
+<main
+	class="grid h-full landscape:grid-cols-[2fr_minmax(300px,1fr)] portrait:grid-rows-2 bg-gray gap1"
+>
+	<Dropzone
+		on:change={onFileChange}
+		class="appearance-none block border-none bg-gray-9 relative flex items-center justify-center box-border"
+	>
+		<!-- Fast preview -->
+		<canvas
+			bind:this={canvas}
+			class="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-h-full max-w-full"
+		/>
+		{#await urlPromise then url}
+			<!-- Delayed preview with anti-aliasing -->
+			<img
+				src={url}
+				alt="Preview"
+				class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-h-full max-w-full"
+				on:error={() => (urlPromise = unresolved)}
+			/>
+		{/await}
+	</Dropzone>
+	<section class="bg-gray-9 text-gray-1">
+		<h2 class="text-sm">Inspector</h2>
+		<section class="p-4">
+			<h3>Save</h3>
+			<button
+				class="bg-gray-1 text-gray-9 appearance-none border-0"
+				on:click={() => {
+					urlPromise.then((url) => {
+						const a = document.createElement('a');
+						a.href = url;
+						a.download = 'peneg.jpg';
+						a.click();
+					});
+				}}
+			>
+				Save
+			</button>
+		</section>
+	</section>
+</main>
