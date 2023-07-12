@@ -55,7 +55,7 @@ export class Preview {
 			this.ctx.canvas.toBlob((blob) => {
 				if (blob) resolve(URL.createObjectURL(blob));
 				else reject(new Error('Failed to create blob'));
-			});
+			}, 'image/jpeg');
 		});
 	}
 
