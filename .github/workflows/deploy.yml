@@ -1,0 +1,26 @@
+on:
+  push:
+    branches: [main]
+
+jobs:
+  web-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/setup-node
+      - name: Build svelte
+        run: pnpm build
+      - name: Publish to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: exif-photos
+          directory: build
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
