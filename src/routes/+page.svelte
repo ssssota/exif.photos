@@ -13,6 +13,7 @@
 
 	const unresolved: Promise<any> = new Promise(() => undefined);
 	let urlPromise: Promise<string> = unresolved;
+	let filename: string | undefined;
 	let exif: ExifData = {};
 
 	const layoutBuilders = [none, frame];
@@ -34,6 +35,8 @@
 	const onFileChange = async (e: CustomEvent<FileList>) => {
 		const file = e.detail.item(0);
 		if (!file || !preview) return;
+
+		filename = file.name;
 
 		[exif] = await Promise.all([loadExif(file), preview.load(file)]);
 		redraw(layoutBuilder);
@@ -92,7 +95,7 @@
 					urlPromise.then((url) => {
 						const a = document.createElement('a');
 						a.href = url;
-						a.download = 'peneg.jpg';
+						a.download = filename ?? 'exif-photos.jpg';
 						a.click();
 					});
 				}}
