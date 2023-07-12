@@ -1,4 +1,5 @@
 <script lang="ts">
+	// eslint-ignore @typescript-eslint/no-explicit-any
 	import Dropzone from '$lib/components/Dropzone.svelte';
 	import { loadExif, type ExifData } from '$lib/exif';
 	import { Preview } from '$lib/preview';
@@ -10,7 +11,7 @@
 	let preview: Preview | undefined;
 	$: if (ctx) preview = new Preview(ctx);
 
-	const unresolved: Promise<any> = new Promise(() => {});
+	const unresolved: Promise<any> = new Promise(() => undefined);
 	let urlPromise: Promise<string> = unresolved;
 	let exif: ExifData = {};
 
@@ -46,23 +47,23 @@
 </script>
 
 <main
-	class="grid h-full landscape:grid-cols-[2fr_minmax(300px,1fr)] portrait:grid-rows-2 bg-gray gap1"
+	class="grid h-full gap1 bg-gray landscape:grid-cols-[2fr_minmax(300px,1fr)] portrait:grid-rows-2"
 >
 	<Dropzone
 		on:change={onFileChange}
-		class="appearance-none block border-none bg-gray-9 relative flex items-center justify-center box-border"
+		class="relative box-border block flex appearance-none items-center justify-center border-none bg-gray-9"
 	>
 		<!-- Fast preview -->
 		<canvas
 			bind:this={canvas}
-			class="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-h-full max-w-full"
+			class="pointer-events-none absolute left-1/2 top-1/2 max-h-full max-w-full -translate-x-1/2 -translate-y-1/2"
 		/>
 		{#await urlPromise then url}
 			<!-- Delayed preview with anti-aliasing -->
 			<img
 				src={url}
 				alt="Preview"
-				class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-h-full max-w-full"
+				class="absolute left-1/2 top-1/2 max-h-full max-w-full -translate-x-1/2 -translate-y-1/2"
 				on:error={() => (urlPromise = unresolved)}
 			/>
 		{/await}
@@ -86,7 +87,7 @@
 		<section class="p-4">
 			<h3>Save</h3>
 			<button
-				class="bg-gray-1 text-gray-9 appearance-none border-0"
+				class="appearance-none border-0 bg-gray-1 text-gray-9"
 				on:click={() => {
 					urlPromise.then((url) => {
 						const a = document.createElement('a');
