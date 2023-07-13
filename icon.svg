@@ -1,0 +1,21 @@
+<svg width="48" height="48" version="1.1" viewBox="0 0 12.7 12.7" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <linearGradient id="linearGradient875" x1="10.8" x2="10.8" y1="10.98" y2="1.7856" gradientTransform="translate(.35271 -.2991)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#e5e5e5" offset="0"/>
+      <stop stop-color="#a2a2a2" offset="1"/>
+    </linearGradient>
+    <linearGradient id="linearGradient933" x1="1.9299" x2="10.966" y1="6.4159" y2="6.4159" gradientTransform="matrix(.89109 0 0 .89109 1.4895 -11.267)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#e7e7e7" offset="0"/>
+      <stop stop-color="#acacac" offset="1"/>
+    </linearGradient>
+    <linearGradient id="linearGradient2519" x1="1.7062" x2="8.4386" y1="5.5545" y2="5.5545" gradientTransform="translate(-.32466 .32715)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8f8f8f" offset="0"/>
+      <stop stop-color="#fff" offset="1"/>
+    </linearGradient>
+  </defs>
+  <g stroke-linecap="square">
+    <rect x="2.2826" y="1.4391" width="9.0359" height="9.3554" ry="0" fill="url(#linearGradient875)" stroke-width="1.3229"/>
+    <rect transform="rotate(90)" x="3.2092" y="-9.718" width="8.0518" height="8.3365" ry="0" fill="url(#linearGradient933)" stroke-width="1.1788"/>
+    <path d="m2.2823 1.4391v1.7699h-0.90072v6.8921a5.2268 5.2268 0 0 0 1.5059 0.22324 5.2268 5.2268 0 0 0 5.2266-5.2271 5.2268 5.2268 0 0 0-1.4986-3.6582z" fill="url(#linearGradient2519)" stroke-width="1.1788"/>
+  </g>
+</svg>
