@@ -10,10 +10,10 @@ export const justFrame: LayoutBuilder = {
 			{
 				type: 'background',
 				color: 'white',
-				top: -2,
-				right: -2,
-				bottom: -2,
-				left: -2
+				top: -3.5,
+				right: -3.5,
+				bottom: -3.5,
+				left: -3.5
 			},
 			{ type: 'image' }
 		];

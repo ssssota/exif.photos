@@ -3,7 +3,7 @@
 	import Dropzone from '$lib/components/Dropzone.svelte';
 	import { loadExif, type ExifData } from '$lib/exif';
 	import { Preview } from '$lib/preview';
-	import { frame, justFrame, none } from '$lib/preview/layout-builder';
+	import { frame, inThePhoto, justFrame, none } from '$lib/preview/layout-builder';
 	let canvas: HTMLCanvasElement | null = null;
 	let ctx: CanvasRenderingContext2D | undefined;
 	$: ctx = canvas?.getContext('2d') ?? undefined;
@@ -19,7 +19,7 @@
 	const qualities = ['original', 'high', 'medium', 'low'] as const;
 	let saveQuality: 'original' | 'high' | 'medium' | 'low' = 'high';
 
-	const layoutBuilders = [none, justFrame, frame];
+	const layoutBuilders = [none, justFrame, frame, inThePhoto];
 	type LayoutBuilder = (typeof layoutBuilders)[number];
 	let layoutBuilderName: LayoutBuilder['name'] = layoutBuilders[0].name;
 	let layoutBuilder: (typeof layoutBuilders)[number];
