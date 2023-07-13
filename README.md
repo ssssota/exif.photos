@@ -1,4 +1,4 @@
-![exif.photos](./icon.png)
+![exif.photos](./icon.svg)
 
 # 📸 [exif.photos](https://exif.photos)
 
