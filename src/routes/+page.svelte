@@ -147,6 +147,16 @@
 					GitHub
 				</a>.
 			</p>
+			<p>
+				Please share your feedback on
+				<a href="https://forms.gle/LVtVjj3b9mdrUEmH7" target="_blank" rel="noreferrer">
+					Google Forms
+				</a>
+				or on
+				<a href="https://github.com/ssssota/exif.photos/issues" target="_blank" rel="noreferrer">
+					GitHub Discussions
+				</a>.
+			</p>
 		</section>
 	</section>
 </main>
