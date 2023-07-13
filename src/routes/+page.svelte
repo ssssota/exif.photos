@@ -3,7 +3,7 @@
 	import Dropzone from '$lib/components/Dropzone.svelte';
 	import { loadExif, type ExifData } from '$lib/exif';
 	import { Preview } from '$lib/preview';
-	import { frame, none } from '$lib/preview/layout-builder';
+	import { frame, justFrame, none } from '$lib/preview/layout-builder';
 	let canvas: HTMLCanvasElement | null = null;
 	let ctx: CanvasRenderingContext2D | undefined;
 	$: ctx = canvas?.getContext('2d') ?? undefined;
@@ -16,7 +16,10 @@
 	let filename: string | undefined;
 	let exif: ExifData = {};
 
-	const layoutBuilders = [none, frame];
+	const qualities = ['original', 'high', 'medium', 'low'] as const;
+	let saveQuality: 'original' | 'high' | 'medium' | 'low' = 'high';
+
+	const layoutBuilders = [none, justFrame, frame];
 	type LayoutBuilder = (typeof layoutBuilders)[number];
 	let layoutBuilderName: LayoutBuilder['name'] = layoutBuilders[0].name;
 	let layoutBuilder: (typeof layoutBuilders)[number];
@@ -27,9 +30,12 @@
 		options?: Builder['defaultOptions']
 	) => {
 		if (!preview) return;
-		urlPromise = preview
-			.draw(builder.build({ exif, options: (options ?? builder.defaultOptions) as any }))
-			.catch(() => unresolved);
+		try {
+			preview.draw(builder.build({ exif, options: (options ?? builder.defaultOptions) as any }));
+			urlPromise = preview.toUrl().catch(() => unresolved);
+		} catch (e) {
+			console.warn(e);
+		}
 	};
 
 	const onFileChange = async (e: CustomEvent<FileList>) => {
@@ -49,13 +55,15 @@
 	$: redraw(layoutBuilder);
 </script>
 
-<main
-	class="grid h-full gap1 bg-gray landscape:grid-cols-[2fr_minmax(300px,1fr)] portrait:grid-rows-2"
->
+<main class="grid h-full gap1 landscape:grid-cols-[2fr_minmax(300px,1fr)] portrait:grid-rows-2">
 	<Dropzone
 		on:change={onFileChange}
-		class="relative box-border block flex appearance-none items-center justify-center border-none bg-gray-9"
+		class="relative box-border block flex appearance-none items-center justify-center border-none"
+		accept="image/jpeg,image/png"
 	>
+		<p class="absolute left-1/2 top-1/2 -translate-1/2 pointer-events-none">
+			Tap to select a photo
+		</p>
 		<!-- Fast preview -->
 		<canvas
 			bind:this={canvas}
@@ -71,37 +79,74 @@
 			/>
 		{/await}
 	</Dropzone>
-	<section class="bg-gray-9 text-gray-1">
-		<h2 class="text-sm">Inspector</h2>
+	<section class="overflow-auto">
+		<h2>Inspector</h2>
+		{#key filename}
+			<section class="p-4">
+				<h3>Layout</h3>
+				<select bind:value={layoutBuilderName}>
+					{#each layoutBuilders as builder (builder.name)}
+						<option value={builder.name}>{builder.name}</option>
+					{/each}
+				</select>
+				{#if layoutBuilder.OptionsEditor !== undefined}
+					<section>
+						<h4>Options</h4>
+						<svelte:component
+							this={layoutBuilder.OptionsEditor}
+							{exif}
+							defaultOptions={layoutBuilder.defaultOptions}
+							on:change={onOptionsChange}
+						/>
+					</section>
+				{/if}
+			</section>
+			<section class="p-4">
+				<h3>Save</h3>
+				<label class="inline-flex gap1 items-center">
+					Quality:
+					<select bind:value={saveQuality}>
+						{#each qualities as quality (quality)}
+							<option value={quality}>{quality}</option>
+						{/each}
+					</select>
+				</label>
+				<p>
+					<button
+						on:click={() => {
+							if (!preview) return;
+							const quality = { original: 1, high: 0.8, medium: 0.6, low: 0.4 }[saveQuality];
+							preview.toUrl(quality).then((url) => {
+								const a = document.createElement('a');
+								a.href = url;
+								a.download = filename ?? 'exif.photos.jpg';
+								a.click();
+							});
+						}}
+					>
+						Save
+					</button>
+				</p>
+			</section>
+		{/key}
 		<section class="p-4">
-			<h3>Layout</h3>
-			<select bind:value={layoutBuilderName}>
-				{#each layoutBuilders as builder (builder.name)}
-					<option value={builder.name}>{builder.name}</option>
-				{/each}
-			</select>
-			{#if layoutBuilder.OptionsEditor !== undefined}
-				<section>
-					<h4>Options</h4>
-					<svelte:component this={layoutBuilder.OptionsEditor} on:change={onOptionsChange} />
-				</section>
-			{/if}
-		</section>
-		<section class="p-4">
-			<h3>Save</h3>
-			<button
-				class="appearance-none border-0 bg-gray-1 text-gray-9"
-				on:click={() => {
-					urlPromise.then((url) => {
-						const a = document.createElement('a');
-						a.href = url;
-						a.download = filename ?? 'exif-photos.jpg';
-						a.click();
-					});
-				}}
-			>
-				Save
-			</button>
+			<h3>About</h3>
+			<p>
+				Inspired by
+				<a href="https://apps.apple.com/app/id1547215938" target="_blank" rel="noreferrer">
+					Liit - Vintage Photo Editor
+				</a>.
+			</p>
+			<p>
+				Created by
+				<a href="https://github.com/ssssota" target="_blank" rel="noreferrer">ssssota</a>.
+			</p>
+			<p>
+				Source code available on
+				<a href="https://github.com/ssssota/exif.photos" target="_blank" rel="noreferrer">
+					GitHub
+				</a>.
+			</p>
 		</section>
 	</section>
 </main>

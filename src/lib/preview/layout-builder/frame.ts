@@ -1,15 +1,35 @@
 import FrameOptionsEditor from './FrameOptionsEditor.svelte';
 import type { LayoutBuilder } from './types';
 
-type FrameOptions = {
+export type FrameOptions = {
 	align: 'left' | 'center' | 'right';
+	model: string;
+	make: string;
+	focalLength: string;
+	fNumber: string;
+	exposureTime: string;
+	iso: string;
 };
 export const frame: LayoutBuilder<FrameOptions> = {
 	name: 'Frame',
 	description: 'A simple frame',
-	defaultOptions: { align: 'center' },
+	defaultOptions: {
+		align: 'center',
+		model: '',
+		make: '',
+		focalLength: '',
+		fNumber: '',
+		exposureTime: '',
+		iso: ''
+	},
 	OptionsEditor: FrameOptionsEditor,
 	build: ({ exif, options }) => {
+		const model = options.model || exif.Model;
+		const make = options.make || exif.Make;
+		const focalLength = options.focalLength || exif.FocalLength;
+		const fNumber = options.fNumber || exif.FNumber;
+		const exposureTime = options.exposureTime || exif.ExposureTime;
+		const iso = options.iso || exif.ISO;
 		return [
 			{
 				type: 'background',
@@ -34,14 +54,14 @@ export const frame: LayoutBuilder<FrameOptions> = {
 						value: 'Shot on ',
 						font: { family: 'sans-serif', size: 2.5 }
 					},
-					exif.Model && {
+					model && {
 						color: '#000',
-						value: `${exif.Model} `,
+						value: `${model} `,
 						font: { family: 'sans-serif', size: 2.5, weight: 'bold' }
 					},
-					exif.Make && {
+					make && {
 						color: '#000',
-						value: exif.Make,
+						value: make,
 						font: { family: 'sans-serif', size: 2.5 }
 					}
 				].flatMap((x) => x || [])
@@ -55,24 +75,24 @@ export const frame: LayoutBuilder<FrameOptions> = {
 					y: { type: 'bottom', offset: 8 }
 				},
 				text: [
-					exif.FocalLength && {
+					focalLength && {
 						color: '#999',
-						value: `${exif.FocalLength} `,
+						value: `${focalLength} `,
 						font: { family: 'sans-serif', size: 1.75 }
 					},
-					exif.FNumber && {
+					fNumber && {
 						color: '#999',
-						value: `${exif.FNumber} `,
+						value: `${fNumber} `,
 						font: { family: 'sans-serif', size: 1.75 }
 					},
-					exif.ExposureTime && {
+					exposureTime && {
 						color: '#999',
-						value: `${exif.ExposureTime} `,
+						value: `${exposureTime} `,
 						font: { family: 'sans-serif', size: 1.75 }
 					},
-					exif.ISO && {
+					iso && {
 						color: '#999',
-						value: exif.ISO,
+						value: iso,
 						font: { family: 'sans-serif', size: 1.75 }
 					}
 				].flatMap((x) => x || [])

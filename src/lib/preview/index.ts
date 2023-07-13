@@ -28,9 +28,8 @@ export class Preview {
 		});
 	}
 
-	public async draw(layout: Layout = [{ type: 'image' }]): Promise<string> {
+	public draw(layout: Layout = [{ type: 'image' }]) {
 		if (!this.image) throw new Error('Image not loaded');
-		this.ctx.clearRect(0, 0, this.width, this.height);
 		const unit = Math.min(this.image.width, this.image.height) / 100;
 		const margin = calculateMargin(layout, unit);
 		this.width = this.image.width + margin.left + margin.right;
@@ -50,12 +49,18 @@ export class Preview {
 					break;
 			}
 		}
+	}
 
+	public async toUrl(quality?: number): Promise<string> {
 		return await new Promise((resolve, reject) => {
-			this.ctx.canvas.toBlob((blob) => {
-				if (blob) resolve(URL.createObjectURL(blob));
-				else reject(new Error('Failed to create blob'));
-			}, 'image/jpeg');
+			this.ctx.canvas.toBlob(
+				(blob) => {
+					if (blob) resolve(URL.createObjectURL(blob));
+					else reject(new Error('Failed to create blob'));
+				},
+				'image/jpeg',
+				quality
+			);
 		});
 	}
 
