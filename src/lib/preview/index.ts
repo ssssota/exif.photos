@@ -1,10 +1,15 @@
+import UAParser from 'ua-parser-js';
 import { fontToString } from './font';
 import type { Layout, Text } from './layout';
 import { calculateMargin, type Margin } from './layout/margin';
 
+const iosMaxPixels = 16777216;
 export class Preview {
 	private image: HTMLImageElement | undefined;
-	constructor(private readonly ctx: CanvasRenderingContext2D) {}
+	private ios = false;
+	constructor(private readonly ctx: CanvasRenderingContext2D) {
+		this.ios = new UAParser(window.navigator.userAgent).getOS().name?.toLowerCase() === 'ios';
+	}
 
 	public get width(): number {
 		return this.ctx.canvas.width;
@@ -32,20 +37,32 @@ export class Preview {
 		if (!this.image) throw new Error('Image not loaded');
 		const unit = Math.min(this.image.width, this.image.height) / 100;
 		const margin = calculateMargin(layout, unit);
-		this.width = this.image.width + margin.left + margin.right;
-		this.height = this.image.height + margin.top + margin.bottom;
+		let scale = 1;
+		const width = (this.width = this.image.width + margin.left + margin.right);
+		const height = (this.height = this.image.height + margin.top + margin.bottom);
+		const currentPixels = width * height;
+		if (this.ios && currentPixels > iosMaxPixels) {
+			scale = Math.sqrt(iosMaxPixels / currentPixels);
+			this.width = width * scale;
+			this.height = height * scale;
+		}
+		const normalizedUnit = unit * scale;
+		const normalizedMargin = calculateMargin(layout, normalizedUnit);
 
 		for (const layer of layout) {
 			switch (layer.type) {
 				case 'image':
+					this.ctx.save();
+					this.ctx.scale(scale, scale);
 					this.ctx.drawImage(this.image, margin.left, margin.top);
+					this.ctx.restore();
 					break;
 				case 'background':
 					this.ctx.fillStyle = layer.color;
 					this.ctx.fillRect(0, 0, this.width, this.height);
 					break;
 				case 'text':
-					this.drawText(layer, unit, margin);
+					this.drawText(layer, normalizedUnit, normalizedMargin);
 					break;
 			}
 		}
