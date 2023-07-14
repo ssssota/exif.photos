@@ -1,5 +1,4 @@
 import { npm_package_description, npm_package_name } from '$env/static/private';
-import type { ManifestOptions } from 'vite-plugin-pwa';
 import type { RequestHandler } from './$types';
 
 export const prerender = true;
@@ -24,7 +23,7 @@ export const GET: RequestHandler = async () => {
 					purpose: 'any maskable'
 				}
 			]
-		} satisfies Partial<ManifestOptions>),
+		}),
 		{
 			headers: { 'content-type': 'application/manifest+json' }
 		}
