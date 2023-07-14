@@ -61,7 +61,7 @@
 		class="relative box-border block flex appearance-none items-center justify-center border-none"
 		accept="image/jpeg,image/png"
 	>
-		<p class="absolute left-1/2 top-1/2 -translate-1/2 pointer-events-none">
+		<p class="pointer-events-none absolute left-1/2 top-1/2 -translate-1/2">
 			Tap to select a photo
 		</p>
 		<!-- Fast preview -->
@@ -103,7 +103,7 @@
 			</section>
 			<section class="p-4">
 				<h3>Save</h3>
-				<label class="inline-flex gap1 items-center">
+				<label class="inline-flex items-center gap1">
 					Quality:
 					<select bind:value={saveQuality}>
 						{#each qualities as quality (quality)}
