@@ -1,6 +1,7 @@
 {
 	"name": "exif.photos",
 	"version": "0.0.1",
+	"description": "Display EXIF data from your photos in a beautiful way",
 	"private": true,
 	"scripts": {
 		"dev": "vite dev",
@@ -9,7 +10,8 @@
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "prettier --plugin-search-dir . --check . && eslint .",
-		"fmt": "prettier --plugin-search-dir . --write . && eslint . --fix"
+		"fmt": "prettier --plugin-search-dir . --write . && eslint . --fix",
+		"generate-pwa-assets": "pwa-assets-generator --preset minimal -r static icon.svg"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-static": "^2.0.0",
@@ -18,6 +20,7 @@
 		"@typescript-eslint/parser": "^5.45.0",
 		"@unocss/eslint-config": "^0.53.4",
 		"@unocss/extractor-svelte": "^0.53.4",
+		"@vite-pwa/assets-generator": "^0.0.3",
 		"eslint": "^8.28.0",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-svelte": "^2.30.0",

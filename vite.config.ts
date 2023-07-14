@@ -4,10 +4,5 @@ import UnoCSS from 'unocss/vite';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-	plugins: [
-		UnoCSS({
-			extractors: [extractorSvelte()]
-		}),
-		sveltekit()
-	]
+	plugins: [UnoCSS({ extractors: [extractorSvelte()] }), sveltekit()]
 });
