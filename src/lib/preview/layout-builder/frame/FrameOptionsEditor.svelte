@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { ExifData } from '$lib/exif';
 	import { createEventDispatcher } from 'svelte';
-	import type { FrameOptions } from './frame';
+	import type { FrameOptions } from './types';
 
 	interface $$Events {
 		change: FrameOptions;

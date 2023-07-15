@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { ExifData } from '$lib/exif';
 	import { createEventDispatcher } from 'svelte';
-	import type { InThePhotoOptions } from './in-the-photo';
+	import type { InThePhotoOptions } from './types';
 
 	interface $$Events {
 		change: InThePhotoOptions;

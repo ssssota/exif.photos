@@ -1,16 +1,7 @@
+import type { LayoutBuilder } from '../types';
 import InThePhotoOptionsEditor from './InThePhotoOptionsEditor.svelte';
-import type { LayoutBuilder } from './types';
+import type { InThePhotoOptions } from './types';
 
-export type InThePhotoOptions = {
-	align: 'left' | 'right';
-	color: 'white' | 'gray' | 'black';
-	model: string;
-	make: string;
-	focalLength: string;
-	fNumber: string;
-	exposureTime: string;
-	iso: string;
-};
 export const inThePhoto: LayoutBuilder<InThePhotoOptions> = {
 	name: 'In the Photo',
 	description: 'Exif data in the photo',

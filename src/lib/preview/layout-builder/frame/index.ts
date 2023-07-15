@@ -1,15 +1,7 @@
+import type { LayoutBuilder } from '../types';
 import FrameOptionsEditor from './FrameOptionsEditor.svelte';
-import type { LayoutBuilder } from './types';
+import type { FrameOptions } from './types';
 
-export type FrameOptions = {
-	align: 'left' | 'center' | 'right';
-	model: string;
-	make: string;
-	focalLength: string;
-	fNumber: string;
-	exposureTime: string;
-	iso: string;
-};
 export const frame: LayoutBuilder<FrameOptions> = {
 	name: 'Frame',
 	description: 'A simple frame',
