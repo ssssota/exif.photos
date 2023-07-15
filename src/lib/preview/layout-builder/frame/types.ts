@@ -1,4 +1,5 @@
 export type FrameOptions = {
+	theme: 'light' | 'dark';
 	align: 'left' | 'center' | 'right';
 	model: string;
 	make: string;

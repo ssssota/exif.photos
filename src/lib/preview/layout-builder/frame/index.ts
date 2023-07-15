@@ -6,6 +6,7 @@ export const frame: LayoutBuilder<FrameOptions> = {
 	name: 'Frame',
 	description: 'A simple frame',
 	defaultOptions: {
+		theme: 'light',
 		align: 'center',
 		model: '',
 		make: '',
@@ -16,16 +17,18 @@ export const frame: LayoutBuilder<FrameOptions> = {
 	},
 	OptionsEditor: FrameOptionsEditor,
 	build: ({ exif, options }) => {
+		const { theme, align } = options;
 		const model = options.model || exif.Model;
 		const make = options.make || exif.Make;
 		const focalLength = options.focalLength || exif.FocalLength;
 		const fNumber = options.fNumber || exif.FNumber;
 		const exposureTime = options.exposureTime || exif.ExposureTime;
 		const iso = options.iso || exif.ISO;
+		const light = theme === 'light';
 		return [
 			{
 				type: 'background',
-				color: 'white',
+				color: light ? 'white' : '#111',
 				top: -2,
 				right: -2,
 				bottom: -11,
@@ -34,25 +37,25 @@ export const frame: LayoutBuilder<FrameOptions> = {
 			{ type: 'image' },
 			{
 				type: 'text',
-				align: options.align,
+				align: align,
 				baseline: 'alphabetic',
 				position: {
-					x: { type: options.align, offset: 0 },
+					x: { type: align, offset: 0 },
 					y: { type: 'bottom', offset: 5 }
 				},
 				text: [
 					{
-						color: '#666',
+						color: light ? '#666' : '#eee',
 						value: 'Shot on ',
 						font: { family: 'sans-serif', size: 2.5 }
 					},
 					model && {
-						color: '#000',
+						color: light ? '#000' : '#fff',
 						value: `${model} `,
 						font: { family: 'sans-serif', size: 2.5, weight: 'bold' }
 					},
 					make && {
-						color: '#000',
+						color: light ? '#000' : '#fff',
 						value: make,
 						font: { family: 'sans-serif', size: 2.5 }
 					}
@@ -60,30 +63,30 @@ export const frame: LayoutBuilder<FrameOptions> = {
 			},
 			{
 				type: 'text',
-				align: options.align,
+				align: align,
 				baseline: 'alphabetic',
 				position: {
-					x: { type: options.align, offset: 0 },
+					x: { type: align, offset: 0 },
 					y: { type: 'bottom', offset: 8 }
 				},
 				text: [
 					focalLength && {
-						color: '#999',
+						color: light ? '#999' : '#bbb',
 						value: `${focalLength} `,
 						font: { family: 'sans-serif', size: 1.75 }
 					},
 					fNumber && {
-						color: '#999',
+						color: light ? '#999' : '#bbb',
 						value: `${fNumber} `,
 						font: { family: 'sans-serif', size: 1.75 }
 					},
 					exposureTime && {
-						color: '#999',
+						color: light ? '#999' : '#bbb',
 						value: `${exposureTime} `,
 						font: { family: 'sans-serif', size: 1.75 }
 					},
 					iso && {
-						color: '#999',
+						color: light ? '#999' : '#bbb',
 						value: iso,
 						font: { family: 'sans-serif', size: 1.75 }
 					}
