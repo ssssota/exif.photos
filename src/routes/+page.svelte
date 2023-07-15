@@ -134,8 +134,8 @@
 			<p>
 				Inspired by
 				<a href="https://apps.apple.com/app/id1547215938" target="_blank" rel="noreferrer">
-					Liit - Vintage Photo Editor
-				</a>.
+					Liit - Vintage Photo Editor</a
+				>.
 			</p>
 			<p>
 				Created by
@@ -144,8 +144,8 @@
 			<p>
 				Source code available on
 				<a href="https://github.com/ssssota/exif.photos" target="_blank" rel="noreferrer">
-					GitHub
-				</a>.
+					GitHub</a
+				>.
 			</p>
 			<p>
 				Please share your feedback on
@@ -153,9 +153,13 @@
 					Google Forms
 				</a>
 				or on
-				<a href="https://github.com/ssssota/exif.photos/issues" target="_blank" rel="noreferrer">
-					GitHub Discussions
-				</a>.
+				<a
+					href="https://github.com/ssssota/exif.photos/discussions"
+					target="_blank"
+					rel="noreferrer"
+				>
+					GitHub Discussions</a
+				>.
 			</p>
 		</section>
 	</section>
