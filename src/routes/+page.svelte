@@ -21,7 +21,7 @@
 
 	const layoutBuilders = [none, justFrame, frame, inThePhoto];
 	type LayoutBuilder = (typeof layoutBuilders)[number];
-	let layoutBuilderName: LayoutBuilder['name'] = layoutBuilders[0].name;
+	let layoutBuilderName: LayoutBuilder['name'] = frame.name;
 	let layoutBuilder: (typeof layoutBuilders)[number];
 	$: layoutBuilder = layoutBuilders.find((b) => b.name === layoutBuilderName) ?? layoutBuilders[0];
 

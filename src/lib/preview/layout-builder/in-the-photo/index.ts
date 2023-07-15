@@ -7,7 +7,7 @@ export const inThePhoto: LayoutBuilder<InThePhotoOptions> = {
 	description: 'Exif data in the photo',
 	defaultOptions: {
 		align: 'left',
-		color: 'black',
+		color: 'white',
 		model: '',
 		make: '',
 		focalLength: '',
