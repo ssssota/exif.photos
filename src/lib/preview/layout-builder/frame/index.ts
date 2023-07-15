@@ -31,7 +31,7 @@ export const frame: LayoutBuilder<FrameOptions> = {
 				color: light ? 'white' : '#111',
 				top: -2,
 				right: -2,
-				bottom: -11,
+				bottom: -13,
 				left: -2
 			},
 			{ type: 'image' },
@@ -41,7 +41,7 @@ export const frame: LayoutBuilder<FrameOptions> = {
 				baseline: 'alphabetic',
 				position: {
 					x: { type: align, offset: 0 },
-					y: { type: 'bottom', offset: 5 }
+					y: { type: 'bottom', offset: 6 }
 				},
 				text: [
 					{
@@ -67,7 +67,7 @@ export const frame: LayoutBuilder<FrameOptions> = {
 				baseline: 'alphabetic',
 				position: {
 					x: { type: align, offset: 0 },
-					y: { type: 'bottom', offset: 8 }
+					y: { type: 'bottom', offset: 9 }
 				},
 				text: [
 					focalLength && {
