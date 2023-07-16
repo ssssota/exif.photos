@@ -1,9 +1,8 @@
 <script lang="ts">
-	// eslint-ignore @typescript-eslint/no-explicit-any
 	import Dropzone from '$lib/components/Dropzone.svelte';
 	import { loadExif, type ExifData } from '$lib/exif';
 	import { Preview } from '$lib/preview';
-	import { frame, inThePhoto, justFrame, none } from '$lib/preview/layout-builder';
+	import { banner, frame, inThePhoto, justFrame, none } from '$lib/preview/layout-builder';
 	let canvas: HTMLCanvasElement | null = null;
 	let ctx: CanvasRenderingContext2D | undefined;
 	$: ctx = canvas?.getContext('2d') ?? undefined;
@@ -11,7 +10,7 @@
 	let preview: Preview | undefined;
 	$: if (ctx) preview = new Preview(ctx);
 
-	const unresolved: Promise<any> = new Promise(() => undefined);
+	const unresolved: Promise<string> = new Promise(() => undefined);
 	let urlPromise: Promise<string> = unresolved;
 	let filename: string | undefined;
 	let exif: ExifData = {};
@@ -19,7 +18,7 @@
 	const qualities = ['original', 'high', 'medium', 'low'] as const;
 	let saveQuality: 'original' | 'high' | 'medium' | 'low' = 'high';
 
-	const layoutBuilders = [none, justFrame, frame, inThePhoto];
+	const layoutBuilders = [none, justFrame, frame, inThePhoto, banner];
 	type LayoutBuilder = (typeof layoutBuilders)[number];
 	let layoutBuilderName: LayoutBuilder['name'] = frame.name;
 	let layoutBuilder: (typeof layoutBuilders)[number];
@@ -31,7 +30,7 @@
 	) => {
 		if (!preview) return;
 		try {
-			preview.draw(builder.build({ exif, options: (options ?? builder.defaultOptions) as any }));
+			preview.draw(builder.build({ exif, options: options ?? builder.defaultOptions }));
 			urlPromise = preview.toUrl().catch(() => unresolved);
 		} catch (e) {
 			console.warn(e);

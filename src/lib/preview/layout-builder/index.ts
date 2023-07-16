@@ -1,3 +1,4 @@
+export * from './banner';
 export * from './frame';
 export * from './in-the-photo';
 export * from './just-frame';
