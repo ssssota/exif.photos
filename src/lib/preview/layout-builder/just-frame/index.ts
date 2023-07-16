@@ -1,4 +1,4 @@
-import type { LayoutBuilder } from './types';
+import type { LayoutBuilder } from '../types';
 
 export const justFrame: LayoutBuilder = {
 	name: 'Just a Frame',
