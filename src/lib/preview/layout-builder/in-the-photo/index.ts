@@ -32,9 +32,9 @@ export const inThePhoto: LayoutBuilder<InThePhotoOptions> = {
 				baseline: 'alphabetic',
 				position: {
 					x: { type: align, offset: align === 'left' ? 3 : -3 },
-					y: { type: 'bottom', offset: -8 }
+					y: { type: 'bottom', offset: -10 }
 				},
-				text: [make && { color, value: make, font: { family: 'serif', size: 2.5 } }].flatMap(
+				text: [make && { color, value: make, font: { family: 'serif', size: 4 } }].flatMap(
 					(x) => x || []
 				)
 			},
@@ -44,10 +44,10 @@ export const inThePhoto: LayoutBuilder<InThePhotoOptions> = {
 				baseline: 'alphabetic',
 				position: {
 					x: { type: align, offset: align === 'left' ? 3 : -3 },
-					y: { type: 'bottom', offset: -5 }
+					y: { type: 'bottom', offset: -6 }
 				},
 				text: [
-					model && { color, value: model, font: { family: 'serif', size: 2.5, weight: 'bold' } }
+					model && { color, value: model, font: { family: 'serif', size: 4, weight: 'bold' } }
 				].flatMap((x) => x || [])
 			},
 			{
@@ -62,22 +62,22 @@ export const inThePhoto: LayoutBuilder<InThePhotoOptions> = {
 					focalLength && {
 						color,
 						value: `${focalLength} `,
-						font: { family: 'serif', size: 1.75 }
+						font: { family: 'serif', size: 3 }
 					},
 					fNumber && {
 						color,
 						value: `${fNumber} `,
-						font: { family: 'serif', size: 1.75 }
+						font: { family: 'serif', size: 3 }
 					},
 					exposureTime && {
 						color,
 						value: `${exposureTime} `,
-						font: { family: 'serif', size: 1.75 }
+						font: { family: 'serif', size: 3 }
 					},
 					iso && {
 						color,
 						value: iso,
-						font: { family: 'serif', size: 1.75 }
+						font: { family: 'serif', size: 3 }
 					}
 				].flatMap((x) => x || [])
 			}
