@@ -9,8 +9,8 @@
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-		"lint": "prettier --plugin-search-dir . --check . && eslint .",
-		"fmt": "prettier --plugin-search-dir . --write . && eslint . --fix",
+		"lint": "prettier --plugin prettier-plugin-svelte --check . && eslint .",
+		"fmt": "prettier --plugin prettier-plugin-svelte --write . && eslint . --fix",
 		"generate-pwa-assets": "pwa-assets-generator --preset minimal -r static icon.svg"
 	},
 	"devDependencies": {
