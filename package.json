@@ -21,7 +21,7 @@
 		"@typescript-eslint/parser": "^5.45.0",
 		"@unocss/eslint-config": "^0.53.4",
 		"@unocss/extractor-svelte": "^0.53.4",
-		"@vite-pwa/assets-generator": "^0.0.3",
+		"@vite-pwa/assets-generator": "^0.0.4",
 		"eslint": "^8.28.0",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-svelte": "^2.30.0",
