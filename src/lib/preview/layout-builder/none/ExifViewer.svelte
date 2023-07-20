@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { ExifData } from '$lib/exif';
 
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	interface $$Events {
 		change: Record<string, never>;
 	}
