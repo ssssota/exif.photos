@@ -19,7 +19,7 @@
 		"@types/ua-parser-js": "^0.7.36",
 		"@typescript-eslint/eslint-plugin": "^6.0.0",
 		"@typescript-eslint/parser": "^6.0.0",
-		"@unocss/eslint-config": "^0.53.4",
+		"@unocss/eslint-config": "^0.54.0",
 		"@unocss/extractor-svelte": "^0.54.0",
 		"@vite-pwa/assets-generator": "^0.0.4",
 		"eslint": "^8.28.0",
