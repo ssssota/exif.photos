@@ -38,8 +38,8 @@ devDependencies:
     specifier: ^0.55.0
     version: 0.55.0
   '@vite-pwa/assets-generator':
-    specifier: ^0.0.4
-    version: 0.0.4
+    specifier: ^0.0.5
+    version: 0.0.5
   eslint:
     specifier: ^8.28.0
     version: 8.44.0
@@ -978,8 +978,8 @@ packages:
       - rollup
     dev: true
 
-  /@vite-pwa/assets-generator@0.0.4:
-    resolution: {integrity: sha512-zcJFI4i1tZ/GeChxFvrDMY+QzT2PkFS1AHIIWomYM5o75F3ENEF5mIlU6TLkKW5nqLDxeFB1NCTydKam8qV15A==}
+  /@vite-pwa/assets-generator@0.0.5:
+    resolution: {integrity: sha512-Y5ZR40HNExDc4XhTifFGRchsWLi82Kv6TAzeIrqXiDv+FhPH9+z3gUwj4JP39DCFzR23DnPogx8KLJZ8AJFdWg==}
     engines: {node: '>=16.14.0'}
     hasBin: true
     dependencies:
@@ -988,7 +988,7 @@ packages:
       consola: 3.2.3
       sharp: 0.32.3
       sharp-ico: 0.1.5
-      unconfig: 0.3.9
+      unconfig: 0.3.10
     dev: true
 
   /acorn-jsx@5.3.2(acorn@8.10.0):
@@ -2905,14 +2905,6 @@ packages:
       defu: 6.1.2
       jiti: 1.19.1
       mlly: 1.4.0
-    dev: true
-
-  /unconfig@0.3.9:
-    resolution: {integrity: sha512-8yhetFd48M641mxrkWA+C/lZU4N0rCOdlo3dFsyFPnBHBjMJfjT/3eAZBRT2RxCRqeBMAKBVgikejdS6yeBjMw==}
-    dependencies:
-      '@antfu/utils': 0.7.5
-      defu: 6.1.2
-      jiti: 1.19.1
     dev: true
 
   /undici@5.22.1:
