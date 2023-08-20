@@ -38,8 +38,8 @@ devDependencies:
     specifier: ^0.55.0
     version: 0.55.0
   '@vite-pwa/assets-generator':
-    specifier: ^0.0.5
-    version: 0.0.5
+    specifier: ^0.0.7
+    version: 0.0.7
   eslint:
     specifier: ^8.28.0
     version: 8.44.0
@@ -978,8 +978,8 @@ packages:
       - rollup
     dev: true
 
-  /@vite-pwa/assets-generator@0.0.5:
-    resolution: {integrity: sha512-Y5ZR40HNExDc4XhTifFGRchsWLi82Kv6TAzeIrqXiDv+FhPH9+z3gUwj4JP39DCFzR23DnPogx8KLJZ8AJFdWg==}
+  /@vite-pwa/assets-generator@0.0.7:
+    resolution: {integrity: sha512-3K3mGuWEgaMtYwFlKD7i74M0ylwJRMW5HCz84w8Toh1kkNfVvRuxrSf+1sCiCP2mcA2mRq6w9yqmXdGMZirnLw==}
     engines: {node: '>=16.14.0'}
     hasBin: true
     dependencies:
