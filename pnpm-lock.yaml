@@ -38,8 +38,8 @@ devDependencies:
     specifier: ^0.55.0
     version: 0.55.0
   '@vite-pwa/assets-generator':
-    specifier: ^0.0.8
-    version: 0.0.8
+    specifier: ^0.0.9
+    version: 0.0.9
   eslint:
     specifier: ^8.28.0
     version: 8.44.0
@@ -978,15 +978,15 @@ packages:
       - rollup
     dev: true
 
-  /@vite-pwa/assets-generator@0.0.8:
-    resolution: {integrity: sha512-3wD1mvYig2qGxPELj1AEa7xg++gALATJv3RC5jKYGHSAFFEq1UMM7gs7nPpPBL7XlR6mIHaynyVSmYdibpG48w==}
+  /@vite-pwa/assets-generator@0.0.9:
+    resolution: {integrity: sha512-cMnSxzK0IAhQ088j6C1d2N+Orib/yE0BO9RBQx52LZZzEH5+vhsqTE/rwv5yf8mzD441/eOq5CbDmIOACjQD+w==}
     engines: {node: '>=16.14.0'}
     hasBin: true
     dependencies:
       cac: 6.7.14
       colorette: 2.0.20
       consola: 3.2.3
-      sharp: 0.32.3
+      sharp: 0.32.5
       sharp-ico: 0.1.5
       unconfig: 0.3.10
     dev: true
@@ -1336,8 +1336,8 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /detect-libc@2.0.1:
-    resolution: {integrity: sha512-463v3ZeIrcWtdgIg6vI6XUncguvr2TnGl4SzDXinkt9mSLpBJKXT3mW6xT3VQdDN11+WVs29pgvivTc4Lp8v+w==}
+  /detect-libc@2.0.2:
+    resolution: {integrity: sha512-UX6sGumvvqSaXgdKGUsgZWqcUyIXZ/vZTrlRT/iobiKhGL0zL4d3osHj3uqllWJK+i+sixDS/3COVEOFbupFyw==}
     engines: {node: '>=8'}
     dev: true
 
@@ -2334,7 +2334,7 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
     dependencies:
-      detect-libc: 2.0.1
+      detect-libc: 2.0.2
       expand-template: 2.0.3
       github-from-package: 0.0.0
       minimist: 1.2.8
@@ -2513,16 +2513,16 @@ packages:
     dependencies:
       decode-ico: 0.4.1
       ico-endec: 0.1.6
-      sharp: 0.32.3
+      sharp: 0.32.5
     dev: true
 
-  /sharp@0.32.3:
-    resolution: {integrity: sha512-i1gFPiNqyqxC4ouVvCKj5G8WfPIMeeSxpKcMrjic6NY4e8zktW7bIdqHPc3FCG+pNKU/XCEabKA57hhvZi8UmQ==}
+  /sharp@0.32.5:
+    resolution: {integrity: sha512-0dap3iysgDkNaPOaOL4X/0akdu0ma62GcdC2NBQ+93eqpePdDdr2/LM0sFdDSMmN7yS+odyZtPsb7tx/cYBKnQ==}
     engines: {node: '>=14.15.0'}
     requiresBuild: true
     dependencies:
       color: 4.2.3
-      detect-libc: 2.0.1
+      detect-libc: 2.0.2
       node-addon-api: 6.1.0
       prebuild-install: 7.1.1
       semver: 7.5.4
