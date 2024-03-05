@@ -14,7 +14,7 @@
 		"generate-pwa-assets": "pwa-assets-generator --preset minimal -r static icon.svg"
 	},
 	"devDependencies": {
-		"@sveltejs/adapter-static": "^2.0.0",
+		"@sveltejs/adapter-static": "^3.0.0",
 		"@sveltejs/kit": "^1.20.4",
 		"@types/ua-parser-js": "^0.7.36",
 		"@typescript-eslint/eslint-plugin": "^7.0.0",
