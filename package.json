@@ -22,7 +22,7 @@
 		"@unocss/eslint-config": "^0.58.0",
 		"@unocss/extractor-svelte": "^0.58.0",
 		"@vite-pwa/assets-generator": "^0.2.0",
-		"eslint": "^8.28.0",
+		"eslint": "^9.0.0",
 		"eslint-config-prettier": "^9.0.0",
 		"eslint-plugin-svelte": "^2.30.0",
 		"prettier": "^3.0.0",
